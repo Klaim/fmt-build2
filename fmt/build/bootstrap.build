@@ -1,7 +1,0 @@
-project = fmt
-
-using version
-using config
-using test
-using install
-using dist

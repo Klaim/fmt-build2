@@ -1,0 +1,24 @@
+using cxx.guess
+
+config [bool] config.libfmt.module ?= false
+
+if ($config.libfmt.module)
+{
+  if ($cxx.id.type == 'gcc')
+    fail 'gcc is not supported with libfmt module'
+
+  cxx.features.modules = true
+}
+
+cxx.std = latest
+
+using cxx
+
+hxx{*}: extension = h
+cxx{*}: extension = cc
+mxx{*}: extension = cc
+
+# The test target for cross-testing (running tests under Wine, etc).
+#
+test.target = $cxx.target
+

@@ -1,0 +1,62 @@
+intf_libs = # Interface dependencies.
+impl_libs = # Implementation dependencies.
+#import xxxx_libs += libhello%lib{hello}
+
+# Public headers.
+#
+pub = [dir_path] ../include/fmt/
+
+include $pub
+
+pub_hdrs = $($pub/ pub_hdrs)
+
+lib{fmt}: $pub/{$pub_hdrs}
+
+# Private headers and sources as well as dependencies.
+#
+lib{fmt}: {hxx ixx txx}{**     }  $impl_libs $intf_libs
+lib{fmt}: {cxx        }{** -fmt}: include = ($config.libfmt.module == false)
+lib{fmt}: {mxx        }{fmt    }: include = ($config.libfmt.module)
+
+# Build options.
+#
+out_pfx_inc = [dir_path] $out_root/include/
+src_pfx_inc = [dir_path] $src_root/include/
+out_pfx_src = [dir_path] $out_root/src/
+src_pfx_src = [dir_path] $src_root/src/
+
+cxx.poptions =+ "-I$out_pfx_src" "-I$src_pfx_src" \
+                "-I$out_pfx_inc" "-I$src_pfx_inc"
+
+if ($config.libfmt.module)
+{
+  cxx.poptions =+ -DFMT_MODULE=ON
+  config.cxx.features.modules=true
+}
+
+obja{*}: cxx.poptions += -DFMT_STATIC_BUILD
+objs{*}: cxx.poptions += -DFMT_SHARED_BUILD -DFMT_LIB_EXPORT
+
+# Export options.
+#
+lib{fmt}:
+{
+  cxx.export.poptions = "-I$out_pfx_inc" "-I$src_pfx_inc"
+  cxx.export.libs = $intf_libs
+}
+
+liba{fmt}: cxx.export.poptions += -DFMT_STATIC
+libs{fmt}: cxx.export.poptions += -DFMT_SHARED
+
+# For pre-releases use the complete version to make sure they cannot
+# be used in place of another pre-release or the final version. See
+# the version module for details on the version.* variable values.
+#
+if $version.pre_release
+  lib{fmt}: bin.lib.version = "-$version.project_id"
+else
+  lib{fmt}: bin.lib.version = "-$version.major.$version.minor"
+
+# Don't install private headers.
+#
+{hxx ixx txx}{*}: install = false

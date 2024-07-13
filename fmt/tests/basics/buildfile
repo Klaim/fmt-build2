@@ -1,9 +1,0 @@
-import! [metadata, rule_hint=cxx.link] libs = fmt%lib{fmt}
-
-./ : exe{driver} : {cxx}{driver} hxx{tests.inl} $libs testscript{**}
-
-if $($libs: fmt.is_module)
-{
-    ./ : exe{driver-modules} : {cxx}{driver-modules} hxx{tests.inl} $libs testscript{**}
-}
-

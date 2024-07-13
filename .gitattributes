@@ -17,7 +17,3 @@
 # Use `binary` to make sure certain files are never auto-detected as text.
 #
 #*.png binary
-
-fmt/fmt/include symlink=dir
-fmt/fmt/src symlink=dir
-fmt/doc symlink=dir

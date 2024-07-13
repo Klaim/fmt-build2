@@ -1,0 +1,17 @@
+: 1
+name: libfmt
+version: 11.0.1-a.0.z
+language: c++
+project: fmt
+summary: fmt C++ formatting library
+license: MIT
+description-file: README.md
+package-description-file: PACKAGE-README.md
+url: https://fmt.dev/
+doc-url: https://fmt.dev/11.0/api/
+src-url: https://github.com/fmtlib/fmt/
+package-url: https://github.com/build2-packaging/fmt/
+email: packaging@build2.org ; Mailing list
+#build-error-email: mjklaim@gmail.com
+depends: * build2 >= 0.17.0
+depends: * bpkg >= 0.17.0
