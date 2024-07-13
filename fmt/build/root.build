@@ -1,11 +1,11 @@
 using cxx.guess
 
-config [bool] config.libfmt.module ?= false
+config [bool] config.fmt.module ?= false
 
-if ($config.libfmt.module)
+if ($config.fmt.module)
 {
   if ($cxx.id.type == 'gcc')
-    fail 'gcc is not supported with libfmt module'
+    fail 'gcc is not supported with fmt module'
 
   cxx.features.modules = true
 }

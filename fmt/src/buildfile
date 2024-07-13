@@ -15,8 +15,8 @@ lib{fmt}: $pub/{$pub_hdrs}
 # Private headers and sources as well as dependencies.
 #
 lib{fmt}: {hxx ixx txx}{**     }  $impl_libs $intf_libs
-lib{fmt}: {cxx        }{** -fmt}: include = ($config.libfmt.module == false)
-lib{fmt}: {mxx        }{fmt    }: include = ($config.libfmt.module)
+lib{fmt}: {cxx        }{** -fmt}: include = ($config.fmt.module == false)
+lib{fmt}: {mxx        }{fmt    }: include = ($config.fmt.module)
 
 # Build options.
 #
@@ -28,11 +28,8 @@ src_pfx_src = [dir_path] $src_root/src/
 cxx.poptions =+ "-I$out_pfx_src" "-I$src_pfx_src" \
                 "-I$out_pfx_inc" "-I$src_pfx_inc"
 
-if ($config.libfmt.module)
-{
+if ($config.fmt.module)
   cxx.poptions =+ -DFMT_MODULE=ON
-  config.cxx.features.modules=true
-}
 
 obja{*}: cxx.poptions += -DFMT_STATIC_BUILD
 objs{*}: cxx.poptions += -DFMT_SHARED_BUILD -DFMT_LIB_EXPORT

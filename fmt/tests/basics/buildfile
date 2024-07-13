@@ -1,0 +1,9 @@
+import libs = fmt%lib{fmt}
+
+exe{driver}: {hxx}{driver.inl} $libs testscript{**}
+exe{driver}: {cxx}{driver-modules}: include = ($config.fmt.module)
+exe{driver}: {cxx}{driver-headers}: include = ($config.fmt.module == false)
+
+# Build options.
+#
+cxx.poptions =+ "-I$out_root" "-I$src_root"

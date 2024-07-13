@@ -1,5 +1,5 @@
 : 1
-name: libfmt
+name: fmt
 version: 11.0.1-a.0.z
 language: c++
 project: fmt

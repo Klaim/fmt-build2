@@ -1,6 +1,6 @@
 using cxx.guess
 
-cxx.features.modules = $config.libfmt.module
+cxx.features.modules = $config.fmt.module
 
 cxx.std = latest
 
